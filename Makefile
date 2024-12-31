@@ -1,5 +1,5 @@
 #### User configure  ###############
-CONFIG_DEBUG = n
+CONFIG_DEBUG = y
 CONFIG_DEBUG_PKB = n
 CONFIG_DEBUG_WAIT = n
 CONFIG_DEBUG_SOCK = n
@@ -25,7 +25,7 @@ LFLAGS = -pthread
 export LD CC CFLAGS
 
 ifeq ($(CONFIG_DEBUG), y)
-	CFLAGS += -g
+	CFLAGS += -g -O0
 endif
 
 ifeq ($(CONFIG_DEBUG), y)
