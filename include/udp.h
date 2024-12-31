@@ -4,15 +4,15 @@
 #include "sock.h"
 
 struct udp {
-	unsigned short src;	/* source port */
-	unsigned short dst;	/* destination port */
-	unsigned short length;	/* udp head and data */
-	unsigned short checksum;
-	unsigned char data[0];
+  unsigned short src;    /* source port */
+  unsigned short dst;    /* destination port */
+  unsigned short length; /* udp head and data */
+  unsigned short checksum;
+  unsigned char data[0];
 } __attribute__((packed));
 
 struct udp_sock {
-	struct sock sk;
+  struct sock sk;
 };
 
 #define UDP_HRD_SZ sizeof(struct udp)
@@ -25,4 +25,4 @@ extern void udp_in(struct pkbuf *pkb);
 extern void udp_init(void);
 extern struct sock *udp_alloc_sock(int protocol);
 
-#endif	/* udp.h */
+#endif /* udp.h */

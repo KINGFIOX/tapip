@@ -3,50 +3,36 @@
 
 #include "wait.h"
 
-enum socket_state {
-	SS_UNCONNECTED = 1,
-	SS_BIND,
-	SS_LISTEN,
-	SS_CONNECTING,
-	SS_CONNECTED,
-	SS_MAX
-};
+enum socket_state { SS_UNCONNECTED = 1, SS_BIND, SS_LISTEN, SS_CONNECTING, SS_CONNECTED, SS_MAX };
 
-enum sock_type {
-	SOCK_STREAM = 1,
-	SOCK_DGRAM,
-	SOCK_RAW,
-	SOCK_MAX
-};
+enum sock_type { SOCK_STREAM = 1, SOCK_DGRAM, SOCK_RAW, SOCK_MAX };
 
-enum socket_family {
-	AF_INET = 1
-};
+enum socket_family { AF_INET = 1 };
 
 struct socket;
 struct sock_addr;
 /* protocol dependent socket apis */
 struct socket_ops {
-	int (*socket)(struct socket *, int);
-	int (*close)(struct socket *);
-	int (*accept)(struct socket *, struct socket *, struct sock_addr *);
-	int (*listen)(struct socket *, int);
-	int (*bind)(struct socket *, struct sock_addr *);
-	int (*connect)(struct socket *, struct sock_addr *);
-	int (*read)(struct socket *, void *, int);
-	int (*write)(struct socket *, void *, int);
-	int (*send)(struct socket *, void *, int, struct sock_addr *);
-	struct pkbuf *(*recv)(struct socket *);
+  int (*socket)(struct socket *, int);
+  int (*close)(struct socket *);
+  int (*accept)(struct socket *, struct socket *, struct sock_addr *);
+  int (*listen)(struct socket *, int);
+  int (*bind)(struct socket *, struct sock_addr *);
+  int (*connect)(struct socket *, struct sock_addr *);
+  int (*read)(struct socket *, void *, int);
+  int (*write)(struct socket *, void *, int);
+  int (*send)(struct socket *, void *, int, struct sock_addr *);
+  struct pkbuf *(*recv)(struct socket *);
 };
 
 struct socket {
-	unsigned int state;
-	unsigned int family;	/* socket family: always AF_INET */
-	unsigned int type;	/* l4 protocol type: stream, dgram, raw */
-	struct tapip_wait sleep;
-	struct socket_ops *ops;
-	struct sock *sk;
-	int refcnt;		/* refer to linux file::f_count */
+  unsigned int state;
+  unsigned int family; /* socket family: always AF_INET */
+  unsigned int type;   /* l4 protocol type: stream, dgram, raw */
+  struct tapip_wait sleep;
+  struct socket_ops *ops;
+  struct sock *sk;
+  int refcnt; /* refer to linux file::f_count */
 };
 
 extern struct socket *_socket(int, int, int);
@@ -61,4 +47,4 @@ extern int _write(struct socket *, void *, int);
 extern struct pkbuf *_recv(struct socket *);
 extern void socket_init(void);
 
-#endif	/* socket.h */
+#endif /* socket.h */

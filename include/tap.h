@@ -18,4 +18,4 @@ extern void setflags_tap(unsigned char *name, unsigned short flags, int set);
 extern void setnetmask_tap(unsigned char *name, unsigned int netmask);
 extern int setpersist_tap(int fd);
 
-#endif	/* tap.h */
+#endif /* tap.h */
